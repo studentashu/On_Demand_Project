@@ -11,7 +11,7 @@ const BuyService = () => {
     dateOfJoining: '',
     address: '',
     contact: '',
-  });
+  }); 
 
   const [submitted, setSubmitted] = useState(false);
 

@@ -40,13 +40,20 @@ export default function AdminDashboard() {
   if (!token) return <Navigate to="/login" replace />;
 
   return (
-    <div style={{
-      padding: '2rem',
-      backgroundColor: '#f9f9f9',
-      minHeight: '100vh',
-      fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-      color: '#333',
-    }}>
+   <div style={{
+  padding: '2rem',
+  backgroundImage: 'url("https://img.freepik.com/free-vector/abstract-blue-technology-background_23-2149352058.jpg?semt=ais_hybrid&w=740")',  // Example URL
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
+  backgroundRepeat: 'no-repeat',
+  minHeight: '100vh',
+  fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+  color: '#fff', // Make text white to contrast background
+  backdropFilter: 'blur(2px)', // Optional: slight blur effect
+  backgroundColor: 'rgba(0,0,0,0.5)', // fallback dark overlay
+  backgroundBlendMode: 'overlay' // blend overlay with background
+}}>
+
       <h2 style={{ color: '#2e7d32', marginBottom: '1.5rem' }}>Welcome to Admin Dashboard</h2>
 
       {/* Logout Button */}

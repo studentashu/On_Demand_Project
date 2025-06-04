@@ -8,6 +8,7 @@ const Registeruser = require('./models/Registeruser');
 const Booking = require('./models/Booking');
 const middleware = require('./middleware');
 
+const Notification = require('./models/Notification');
 
 const ServiceProviderDetail = require('./models/ServiceProviderDetail');
 
@@ -324,5 +325,40 @@ app.patch('/complete-booking/:bookingId', middleware, async (req, res) => {
   }
 });
 
+// Admin sends notification to SP and/or Users
+// POST /send-notification - Admin sends notifications to ServiceProvider or User
+
+
+// Admin sends notification to SP and/or Users
+app.post('/send-notification', middleware, async (req, res) => {
+  try {
+    // Ensure only admin can send notifications
+    const user = await Registeruser.findById(req.user.id);
+    if (user.role !== 'Admin') {
+      return res.status(403).send('Access denied');
+    }
+
+    const { message } = req.body;
+    if (!message) return res.status(400).send('Message is required');
+
+    const notification = new Notification({ message });
+    await notification.save();
+    res.status(201).send('Notification sent');
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server error while sending notification');
+  }
+});
+
+// All users can fetch notifications
+app.get('/notifications', middleware, async (req, res) => {
+  try {
+    const notifications = await Notification.find().sort({ createdAt: -1 });
+    res.json(notifications);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server error while fetching notifications');
+  }
+});
 
 app.listen(5000, () => console.log("Server running on port 5000"));
