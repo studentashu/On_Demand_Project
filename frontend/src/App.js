@@ -53,7 +53,7 @@ const App = () => {
 
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/unauthorized" element={<Unauthorized />} />
+      
 
           {/* Protected routes for User */}
           <Route element={<ProtectedRoute allowedRoles={['User']} />}>
